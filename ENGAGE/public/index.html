@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recogintion</title>
+    <script defer async src="./js/face-api.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        canvas{
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <div class="navbar">
+            
+            <img src="./favicon.png" alt="">
+            <section class="secButton">
+            <ul>  
+            <input type="file" id="image_input" multiple="multiple" accept="image/png, image/jpg ,image/jpeg" hidden class="def-hide">
+            <button id="pop-up" type="button" class="cus-btn"><p>Enter Credentials</p></button>
+            <button id="live" type="button" class="cus-btn">
+                <p>Live Video</p>
+            </button>
+            <button id="saved" type="button" class="cus-btn">
+                <p>More</p>
+            </button>
+            </ul>
+        </section>   
+    </div>
+    </div>
+        <div class="bg-modal">
+            <div class="topSectionText">
+                <div class="close">+</div>
+                <img src="./favicon.png" width="80px" height="80px" alt="">
+                <div class="inputclass">
+                    <input type="text" id="image_name" class="nameInput" placeholder="Suspect Name">
+                    <i class="fas fa-upload upload-sym "></i>
+                    <button onclick="defaultBtnActive()" id="custom-btn" class="cus-btn">Choose a File.</button>
+                    <button onclick="nameinputFunction()" class="cus-btn">SUBMIT</button>
+                </div>
+            </div>
+        </div>
+        <div class="bg-modal-video">
+            <div class="topSectionText">
+                <div id="close-video" class="close">+</div>
+                <div class="droptext">Choose A Video Stream</div> 
+                <div class="inputclass">        
+                    <div class="dropdown">
+                        <div class="dropBtn">
+                           <p class="dropBtntext"><i class="fab fa-youtube"></i>Youtube
+                            </p>
+                            <input id="ytlink" type="file" class="btntext" placeholder="youtube link">
+                            <button id="youtubestream" class="btnsubmit">SUBMIT</button>
+                        </div>
+                        <div class="dropBtn" >
+                            <p class="dropBtntext"><i class="fas fa-video"></i>CCTV</p></div>
+                        <div class="dropBtn">
+                            <p class="dropBtntext"><i class="fas fa-video"></i>Livestream</p>
+                            <button id="livestream" class="btnsubmit">Start</button></div>
+                        <div class="dropBtn">
+                            <p class="dropBtntext"><i class="fab fa-youtube"></i>Saved</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-videoshow">
+            <div class="topSectionText">
+                <div id="close-video-show" class="close">+</div>
+                <video class="videoshow" id="videoInput" width="720p" height="550"  muted controls></video>
+            </div>
+        </div>
+            <!-- <script defer async src="./js/face-api.min.js"></script> -->
+            <script defer async src="./js/script.js"></script>
+
+
+</body>
+</html>

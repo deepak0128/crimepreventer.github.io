@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="img/favicon.png"> 
+    <!-- Icon taken from freepik.com -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <title>Crime Preventer</title>
+</head>
+<body>
+    <nav class="navbar h-nav-resp ">
+        <ul class="nav-list v-class-resp">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#working">Working</a></li>
+            <li><a href="#connect">Connect</a></li>
+        </ul>
+        <div class="rightNav v-class-resp">
+            <input type="text" name="search" id="search">
+            <button class="btn btn-sm">Search</button>
+        </div>
+        <div class="burger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </nav>
+    <section class="background firstSection" id="home" >
+        <div class="box-main">
+            <div class="firstHalf">
+                <p class="text-big">Welcome to <span class="theme-color">Crime Preventer</span> using <span class="auto-input theme-color"></span></p>
+                <p class="text-small text-small-main">We can prevent crime by Face Recognition, if we have face data of the suspected ones. In any live video / CCTV stream, by providing this data a suspect can be detected before they commit crime thus preventing the crime.</p>
+                <div class="buttons">
+                    <!-- <a href="./page2/page2.html"><button class="btn">Demo!</button></a> -->
+                    <a href="./ENGAGE/public/index.html"><button class="btn">DEMO!</button></a>
+                </div>
+            </div>
+            <div class="secongHalf">
+                <!-- <video src="temp">Hello</video> -->
+                <!-- <img src="./img/face-png.png" width="350p" height="600" ></img> -->
+                <!-- <img src="./img/big.gif" width="400p" height="240" ></img> -->
+            </div>
+        </div>
+    </section>
+
+    <section class="secRight downbackground">
+        <div class="paras">
+            <p class="text-big"><span class="auto-input2 theme-color"></span></p>
+        <p class="sectionSubtag text-small">
+            The Face Recognition is implemented with the help of <a class="textLinks" href="https://github.com/justadudewhohacks/face-api.js/" target="_blank"><span class="theme-color themeLinks">Face API</span></a> which is an API from JavaScript. The front-end of this website is designed with HTML and styled by CSS. In JavaScript the Face-API is used for Face Detection and Recognition in the browser and it is implemented on the top of Tensorflow's core API. 
+        </p>
+        </div>
+        <img src="./img/facebg.jpeg" alt="Face Animation" class="imgFluid" width="800p" height="400">
+    </section>
+
+    <section class="secRight left downbackground" id="working">
+        <div class="paras">
+        <p class="sectionTag text-big theme-color">Working of the Project.</p>
+        <p class="sectionSubtag text-small">
+            The program takes images/videos of the suspected persons who have a track record of crimes as input then extract the face data from them by using Face Detection. Afterwards it takes a video source may be a prerecorded footage or a live footage and recognizes faces in that source and if any of the faces match it alerts that the suspect is captured.</p>
+        </div>
+        <img src="./img//24749.jpg"  alt="Face Animation" class="imgFluid" width="800p" height="400">
+    </section>
+
+    <section class="secRight downbackground" id="about">
+        <div class="paras">
+        <p class="sectionTag text-big theme-color">Our Moto and Agenda.</p>
+        <p class="sectionSubtag text-small">
+            As the quote, "Precaution is better than Cure.", Our Moto is to prevent crime even before it takes place. If any suspect which is missing or is threat can be found by using face recognition and can be taken into custody before they commits crime.</p>
+        </div>
+        <img src="./img//24749.jpg" alt="Face Animation" class="imgFluid" width="800p" height="400">
+    </section>
+    <section class="timeline">
+            <img src="./img/face-png-cropped.png" alt="Face-PNG" class="imgFluid" width="800p" height="400">
+        <div class="timetext">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi, totam nihil necessitatibus ullam iure quisquam, dolorem doloremque natus quam consequuntur rem quaerat maxime voluptas itaque similique corrupti fugit culpa dignissimos!</p>
+        </div>
+    </section>
+    
+    <section class="main-texts">
+        <p>Main Features</p>
+    </section>
+    <section class="hero">
+        <div class="card-grid">
+            <a href="#" class="card">
+                <div class="bg-cards" style="background-image: url(./img/bg.jpg);"></div>
+                <div class="content">
+                    <p class="category">Live Video</p>
+                    <h2 class="heading">Example Card Heading</h2>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="bg-cards" style="background-image: url(./img/bg.jpg);"></div>
+                <div class="content">
+                    <p class="category">Video footage</p>
+                    <h2 class="heading">Example Card Heading</h2>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="bg-cards" style="background-image: url(./img/bg.jpg);"></div>
+                <div class="content">
+                    <p class="category">Youtube Video.</p>
+                    <h2 class="heading">Example Card Heading</h2>
+                </div>
+            </a>
+            <a href="#" class="card">
+                <div class="bg-cards" style="background-image: url(./img/bg.jpg);"></div>
+                <div class="content">
+                    <p class="category">CCTV Footage.</p>
+                    <h2 class="heading">Example Card Heading</h2>
+                </div>
+            </a>
+        </div>
+    </section>
+    <footer class="background footer-all" >
+        <p class="text-footer">
+            Copyright &copy; SB - All rights reserved.
+        </p>
+        
+        <p class="link-footer" id="connect">
+            <a class="link-anchor" href="https://github.com/shishir-b" target="_blank"><i class="fab fa-github"></i></a>
+            <a class="link-anchor" href="mailto:shishirbhalerao69@gmail.com"><i class="fa fa-envelope " target="_blank"></i></a>
+            <a class="link-anchor" href="https://www.linkedin.com/in/shishir-bhalerao-76b583237/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+            <a class="link-anchor" href="https://youtu.be/dQw4w9WgXcQ" target="_blank"><i class="fab fa-youtube"></i></a>
+        </p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="./js/resp.js"></script>
+</body>
+</html>

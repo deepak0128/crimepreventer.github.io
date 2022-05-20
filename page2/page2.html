@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./cssPage2.css">
+    <title>Upload Images</title>
+</head>
+<body>
+    <nav class="navbar h-nav-resp ">
+        <ul class="nav-list v-class-resp">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#working">Working</a></li>
+            <li><a href="#connect">Connect</a></li>
+        </ul>
+        <div class="rightNav v-class-resp">
+            <input type="text" name="search" id="search">
+            <button class="btn btn-sm">Search</button>
+        </div>
+        <div class="burger">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </nav>
+    <section class="topSection">
+        <div class="topContent">
+            <h1 class="text-big theme-color">Upload the Image of the Suspect.</h1>
+            <button class="btn" id="upload-btn">Upload</button></div>
+    </section>
+    <div class="bg-modal">
+        <div class="topSectionText">
+            <div class="close">+</div>
+            <img src="./img/favicon.png" width="80px" height="80px" alt="">
+            <form action="">
+                <input type="text" class="input-edit" placeholder="NAME">
+                <!-- <input type="text" class="input-edit" placeholder="EMAIL"> -->
+                <input class="def-btn"  id="default-btn" type="file" accept="image/png, image/jpg ,image/jpeg">
+                <button onclick="defaultBtnActive()" id="custom-btn" class="cus-btn input-edit">Choose a File.</button>
+                <!-- <a href="../harryWebsite/ENGAGE/public/index.html" class="btn btn-form">Submit</a> -->
+            </form>
+        </div>
+    </div>
+    <script src="./js/page.js"></script>
+</body>
+</html>
