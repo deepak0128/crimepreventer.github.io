@@ -29,16 +29,17 @@
     <div class="banner">
         <div class="navbar">
             
-            <img src="./favicon.png" alt="">
+            <!-- <img src="./favicon.png" alt=""> -->
+
             <section class="secButton">
             <ul>  
             <input type="file" id="image_input" multiple="multiple" accept="image/png, image/jpg ,image/jpeg" hidden class="def-hide">
-            <button id="pop-up" type="button" class="cus-btn"><p>Enter Credentials</p></button>
-            <button id="live" type="button" class="cus-btn">
-                <p>Live Video</p>
+            <button id="pop-up" type="button" class="outBut"><p class="text-sec">Enter Credentials</p></button>
+            <button id="live" type="button" class="outBut">
+                <p class="text-sec">Live Video</p>
             </button>
-            <button id="saved" type="button" class="cus-btn">
-                <p>More</p>
+            <button id="saved" type="button" class="outBut">
+                <p class="text-sec">More</p>
             </button>
             </ul>
         </section>   
@@ -47,11 +48,12 @@
         <div class="bg-modal">
             <div class="topSectionText">
                 <div class="close">+</div>
-                <img src="./favicon.png" width="80px" height="80px" alt="">
+                <p class="bg-heading" >Enter the details of Suspect.</p>
+                <img src="./favicon.png" width="23%" height="38%" alt="">
                 <div class="inputclass">
                     <input type="text" id="image_name" class="nameInput" placeholder="Suspect Name">
                     <i class="fas fa-upload upload-sym "></i>
-                    <button onclick="defaultBtnActive()" id="custom-btn" class="cus-btn">Choose a File.</button>
+                    <button onclick="defaultBtnActive()" id="custom-btn" class="cus-btn">Choose Photos.</button>
                     <button onclick="nameinputFunction()" class="cus-btn">SUBMIT</button>
                 </div>
             </div>
@@ -65,7 +67,7 @@
                         <div class="dropBtn">
                            <p class="dropBtntext"><i class="fab fa-youtube"></i>Youtube
                             </p>
-                            <input id="ytlink" type="file" class="btntext" placeholder="youtube link">
+                            <input id="ytlink" type="text" class="btntext" placeholder="youtube link">
                             <button id="youtubestream" class="btnsubmit">SUBMIT</button>
                         </div>
                         <div class="dropBtn" >

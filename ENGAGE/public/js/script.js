@@ -10,7 +10,7 @@ const livestream = document.getElementById('livestream')
 const youtubestream = document.getElementById('youtubestream')
 const image_input = document.querySelector('#image_input')
 const image_name = document.querySelector('#image_name')
-const video_input = document.querySelector('#ytlink')
+//const video_input = document.querySelector('#ytlink')
 var uploadImg="";
 
 //upper added
@@ -27,8 +27,13 @@ document.querySelector('.close').addEventListener('click',function(){
 });
 
 document.getElementById('saved').addEventListener('click',function(){
-    document.querySelector('.bg-modal-video').style.display='flex';
-    document.querySelector('.banner').style.filter='blur(10px)'
+    if(no_of_labels==-1){
+        alert("First Please Upload the credentials.")
+    }
+    else{    
+        document.querySelector('.bg-modal-video').style.display='flex';
+        document.querySelector('.banner').style.filter='blur(10px)'
+    }
 })
 document.getElementById('close-video').addEventListener('click',function(){
     document.querySelector('.bg-modal-video').style.display='none';
@@ -101,30 +106,36 @@ image_input.addEventListener("change",(e)=>{
 })
 
 //Perfectly Working
-video_input.addEventListener("change",function(){
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-        const reader = new FileReader();
-        reader.addEventListener("load",()=>{
-            // uploadImg = reader.result;
-            window.localStorage.setItem("video-input",reader.result);
-            // document.body.append(reader)
-            console.log(reader.result)
-        })
-        reader.readAsDataURL(this.files[0]);
-    }
-    else{
-        alert("Your Browser Does Not Support File API")
-    }
-})
-saved.addEventListener('click',function(e){
-    start(1)
-});
+// video_input.addEventListener("change",function(){
+//     if (window.File && window.FileReader && window.FileList && window.Blob) {
+//         const reader = new FileReader();
+//         reader.addEventListener("load",()=>{
+//             // uploadImg = reader.result;
+//             window.localStorage.setItem("video-input",reader.result);
+//             // document.body.append(reader)
+//             console.log(reader.result)
+//         })
+//         reader.readAsDataURL(this.files[0]);
+//     }
+//     else{
+//         alert("Your Browser Does Not Support File API")
+//     }
+// })
+// saved.addEventListener('click',function(e){
+//     start(1)
+// });
 
 live.addEventListener('click',function(e){
-    document.querySelector('.bg-videoshow').style.display='flex';
-    document.querySelector('.videoshow').style.display='none';
-    document.querySelector('.banner').style.filter='blur(10px)'
-    start(2)
+    if(no_of_labels==-1){
+        alert("First Please Upload the credentials.")
+    }
+    else{
+        document.querySelector('.bg-videoshow').style.display='flex';
+        document.querySelector('.videoshow').style.display='none';
+        document.querySelector('.banner').style.filter='blur(10px)'
+        start(2)
+    }
+    
 });
 livestream.addEventListener('click',function(e){
     document.querySelector('.bg-videoshow').style.display='flex';
@@ -132,7 +143,9 @@ livestream.addEventListener('click',function(e){
     start(2)
 });
 youtubestream.addEventListener('click',function(e){
-    
+    var ytlink = document.getElementById('ytlink').value;
+    console.log(ytlink);
+    video.src = `${ytlink}`
     document.querySelector('.bg-videoshow').style.display='flex';
     document.querySelector('.banner').style.filter='blur(10px)'
     recognizeFaces()
