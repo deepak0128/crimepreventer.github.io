@@ -77,7 +77,10 @@
                             <p class="dropBtntext"><i class="fas fa-video"></i>Livestream</p>
                             <button id="livestream" class="btnsubmit">Start</button></div>
                         <div class="dropBtn">
-                            <p class="dropBtntext"><i class="fab fa-youtube"></i>Saved</p></div>
+                            <p class="dropBtntext"><i class="fab fa-youtube"></i>Upload A Video</p>
+                            <input id="upload_video" type="file" class="btnsubmit def-hide" accept="video/mp4 video/mkv video/webm" onchange="selectedVid(this)" hidden >
+                            <button id="upload-visible" class="btnsubmit" onclick="uploadButtonActive()">Upload</button></div>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -10,7 +10,7 @@ const livestream = document.getElementById('livestream')
 const youtubestream = document.getElementById('youtubestream')
 const image_input = document.querySelector('#image_input')
 const image_name = document.querySelector('#image_name')
-//const video_input = document.querySelector('#ytlink')
+const video_input = document.querySelector('#upload_video')
 var uploadImg="";
 
 //upper added
@@ -55,6 +55,9 @@ const defaultBtn=document.querySelector('#image_input');
 const customBtn=document.querySelector('#custom-btn');
 function defaultBtnActive(){
     defaultBtn.click();
+}
+function uploadButtonActive(){
+    video_input.click();
 }
 function nameinputFunction(){
     no_of_labels=no_of_labels+1
@@ -151,6 +154,22 @@ youtubestream.addEventListener('click',function(e){
     recognizeFaces()
 })
 
+function selectedVid(self){
+    var file = self.files[0];
+    var reader = new FileReader();
+    reader.onload = function(e){
+        var src = e.target.result;
+        console.log('src')
+        video.setAttribute("src",src);
+        console.log('video ki src' + video.src)
+    }
+    reader.readAsDataURL(file);
+    document.querySelector('.bg-videoshow').style.display='flex';
+    document.querySelector('.banner').style.filter='blur(10px)'
+    document.querySelector('.videoshow').style.display='flex';
+    recognizeFaces();
+}
+
 function start(option){
     // document.body.append('Models Loaded')
     document.querySelector('.videoshow').style.display='flex';
@@ -165,7 +184,7 @@ function start(option){
     recognizeFaces()
 }
 
-
+var canvas;
 async function recognizeFaces(){
     //const labeledDescriptors = await loadLabelImages()
     //const labeledDescriptors = await loadUploadImages()
@@ -176,12 +195,12 @@ async function recognizeFaces(){
     video.addEventListener('play',()=>{
         console.log('playing')
 
-        const canvas = faceapi.createCanvasFromMedia(video)
+        canvas = faceapi.createCanvasFromMedia(video)
         document.body.append(canvas)
         const displaySize = {width:video.width, height:video.height}
         faceapi.matchDimensions(canvas,displaySize)
 
-        setInterval(async ()=>{
+        let intervalID = setInterval(async ()=>{
             const detections = await faceapi.detectAllFaces(video).withFaceLandmarks().withFaceDescriptors()
             //if(detections!='') console.log('yes')
             const resizedDetections = faceapi.resizeResults(detections,displaySize)
@@ -203,11 +222,38 @@ async function recognizeFaces(){
                 const drawBox = new faceapi.draw.DrawBox(box,{label:result.toString()})
                 drawBox.draw(canvas)
             })
+
             if(flag==0){
                 return
             }
         },100);
-        
+        document.getElementById('close-video-show').addEventListener('click',function(){
+            console.log('hello done')
+            clearInterval(intervalID);
+            video.pause();
+            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.display='none';
+            video.src="";
+            return
+        })
+        document.getElementById('close-video').addEventListener('click',function(){
+            console.log('hello done')
+            clearInterval(intervalID);
+            video.pause();
+            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.display='none';
+            video.src="";
+            return
+        })
+        document.getElementById('close').addEventListener('click',function(){
+            console.log('hello done')
+            clearInterval(intervalID);
+            video.pause();
+            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+            canvas.style.display='none';
+            video.src="";
+            return
+        })
     })
 }
 function loadLabelImages(){
