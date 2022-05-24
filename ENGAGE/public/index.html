@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -8,105 +9,115 @@
     <script defer async src="./js/face-api.min.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        canvas{
-            position: absolute;
-        }
-    </style>
 </head>
 
 <body>
-    <div class="banner">
-        <div class="navbar">
-            <a class="navtext" href="#">Home</a>
-        </div>   
-            <!-- <img src="./favicon.png" alt=""> -->
-
+    <nav class="navbar fade">
+        <a class="navtext" href="#">Home</a>
+    </nav>
+    <section class="banner">
+        <section class="secHead">
+            <p class="secHeadText">Let's Start.</p>
+        </section>
         <section class="secButton">
-        <ul>  
-        <input type="file" id="image_input" multiple="multiple" accept="image/png, image/jpg ,image/jpeg" hidden class="def-hide">
-        <button id="pop-up" type="button" class="outBut"><p class="text-sec">Enter Credentials</p></button>
-        <button id="live" type="button" class="outBut">
-            <p class="text-sec">Live Video</p>
-        </button>
-        <button id="saved" type="button" class="outBut">
-            <p class="text-sec">More</p>
-        </button>
-        </ul>
-        </section>   
-    
-    </div>
-        <div class="bg-modal">
-            <div class="topSectionText">
-                <div class="close">+</div>
-                <p class="bg-heading" >Enter the details of Suspect.</p>
-                <img src="./favicon.png" width="23%" height="38%" alt="">
-                <div class="inputclass">
-                    <input type="text" id="image_name" class="nameInput" placeholder="Suspect Name">
-                    <i class="fas fa-upload upload-sym "></i>
-                    <button onclick="defaultBtnActive()" id="custom-btn" class="cus-btn">Choose Photos.</button>
-                    <button onclick="nameinputFunction()" class="cus-btn">SUBMIT</button>
-                </div>
+            <ul>
+                <input type="file" id="image_input" multiple="multiple" accept="image/png, image/jpg ,image/jpeg" hidden
+                    class="def-hide">
+
+                <button id="pop-up" type="button" class="outBut">
+                    <p class="text-sec">Register Suspect</p>
+                </button>
+                <button id="live" type="button" class="outBut" hidden>
+                    <p class="text-sec">Live Video</p>
+                </button>
+                <button id="saved" type="button" class="outBut">
+                    <p class="text-sec">Catch Suspect </p>
+                </button>
+            </ul>
+        </section>
+    </section>
+    <section class="howToUse fade">
+        <p class="howToUsetext">
+        <p>How to Use: </p>
+        <p>First of all Register A Suspect with the "Register Suspect" Button in the above section. The registration of
+            a suspect will require name and photo(s), input both of them and then the suspect will be registered
+            succssfully.
+            So after registring suspect successfully, now we can use these data to prevent the crime. Now click on
+            "Catch Suspect" button it will pop up a new interface and then select any video stream which is meant to be
+            monitored
+            and follow the simple instruction shown in those options. After selecting preferable stream now to start
+            play the video,
+            the monitoring will be started automatically and whenever a suspect face is match, program will alert us
+            thus preventing the crime. </p>
+        </p>
+    </section>
+    <div class="bg-modal">
+        <div class="topSectionText">
+            <div class="close">+</div>
+            <p class="bg-heading">Enter the details of Suspect.</p>
+            <img src="./favicon.png" width="23%" height="38%" alt="">
+            <div class="inputclass">
+                <input type="text" id="image_name" class="nameInput" placeholder="Suspect Name">
+                <i class="fas fa-upload upload-sym "></i>
+                <button onclick="defaultBtnActive()" id="custom-btn" class="cus-btn">Choose Photos.</button>
+                <button onclick="nameinputFunction()" class="cus-btn">SUBMIT</button>
             </div>
         </div>
-        <div class="bg-modal-video">
-            <div class="topSectionText">
-                <div id="close-video" class="close">+</div>
-                <div class="droptext">Choose A Video Stream</div> 
-                <div class="inputclass">        
-                    <div class="dropdown">
-                        <div class="dropBtn">
-                           <p class="dropBtntext"><i class="fab fa-youtube"></i>Youtube
-                            </p>
-                            <input id="ytlink" type="text" class="btntext" placeholder="youtube link">
-                            <button id="youtubestream" class="btnsubmit">SUBMIT</button>
-                        </div>
-                        <div class="dropBtn" >
-                            <p class="dropBtntext"><i class="fas fa-video"></i>CCTV</p></div>
-                        <div class="dropBtn">
-                            <p class="dropBtntext"><i class="fas fa-video"></i>Livestream</p>
-                            <button id="livestream" class="btnsubmit">Start</button></div>
-                        <div class="dropBtn">
-                            <p class="dropBtntext"><i class="fab fa-youtube"></i>Upload A Video</p>
-                            <input id="upload_video" type="file" class="btnsubmit def-hide" accept="video/mp4 video/mkv video/webm" onchange="selectedVid(this)" hidden >
-                            <button id="upload-visible" class="btnsubmit" onclick="uploadButtonActive()">Upload</button></div>
-                        </div>
+    </div>
+    <div class="bg-modal-video">
+        <div class="topSectionText">
+            <div id="close-video" class="close">+</div>
+            <div class="droptext">Choose A Video Stream</div>
+            <div class="inputclass">
+                <div class="dropdown">
+                    <div class="dropBtn">
+                        <p class="dropBtntext"><i class="fab fa-youtube"></i>Youtube
+                        </p>
+                        <input id="ytlink" type="text" class="btntext" placeholder="youtube link">
+                        <button id="youtubestream" class="btnsubmit">SUBMIT</button>
+                    </div>
+                    <div class="dropBtn">
+                        <p class="dropBtntext"><i class="fas fa-video"></i>CCTV</p>
+                    </div>
+                    <div class="dropBtn">
+                        <p class="dropBtntext"><i class="fas fa-video"></i>Livestream</p>
+                        <button id="livestream" class="btnsubmit">Start</button>
+                    </div>
+                    <div class="dropBtn">
+                        <p class="dropBtntext"><i class="fab fa-youtube"></i>Upload A Video</p>
+                        <input id="upload_video" type="file" class="btnsubmit def-hide"
+                            accept="video/mp4 video/mkv video/webm" onchange="selectedVid(this)" hidden>
+                        <button id="upload-visible" class="btnsubmit" onclick="uploadButtonActive()">Upload</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="bg-videoshow">
-            <div class="topSectionText">
-                <div id="close-video-show" class="close">+</div>
-                <video class="videoshow" id="videoInput" width="720p" height="550"  muted controls></video>
-            </div>
+    </div>
+    </div>
+
+    <div class="bg-videoshow">
+        <div class="topSectionText">
+            <div id="close-video-show" class="close">+</div>
+            <video class="videoshow" id="videoInput" width="720p" height="550" muted controls></video>
         </div>
+    </div>
 
-        <footer class="background footer-all" >
-            <p class="text-footer">
-                Copyright &copy; SB - All rights reserved.
-            </p>
-            
-            <p class="link-footer" id="connect">
-                <a class="link-anchor" href="https://github.com/shishir-b" target="_blank"><i class="fab fa-github"></i></a>
-                <a class="link-anchor" href="mailto:shishirbhalerao69@gmail.com"><i class="fa fa-envelope " target="_blank"></i></a>
-                <a class="link-anchor" href="https://www.linkedin.com/in/shishir-bhalerao-76b583237/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
-                <a class="link-anchor" href="https://youtu.be/dQw4w9WgXcQ" target="_blank"><i class="fab fa-youtube"></i></a>
-            </p>
-        </footer>
-            <!-- <script defer async src="./js/face-api.min.js"></script> -->
-            <script defer async src="./js/script.js"></script>
+    <footer class="background footer-all ">
+        <p class="text-footer">
+            Copyright &copy; SB - All rights reserved.
+        </p>
 
+        <p class="link-footer" id="connect">
+            <a class="link-anchor" href="https://github.com/shishir-b" target="_blank"><i class="fab fa-github"></i></a>
+            <a class="link-anchor" href="mailto:shishirbhalerao69@gmail.com"><i class="fa fa-envelope "
+                    target="_blank"></i></a>
+            <a class="link-anchor" href="https://www.linkedin.com/in/shishir-bhalerao-76b583237/" target="_blank"><i
+                    class="fa-brands fa-linkedin-in"></i></a>
+            <a class="link-anchor" href="https://youtu.be/dQw4w9WgXcQ" target="_blank"><i
+                    class="fab fa-youtube"></i></a>
+        </p>
+    </footer>
 
+    <script defer async src="./js/script.js"></script>
 </body>
 </html>
