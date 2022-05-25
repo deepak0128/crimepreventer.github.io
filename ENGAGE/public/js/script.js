@@ -1,23 +1,40 @@
+/*  
+    This program is written for Microsoft Engage 2022 Mentorship Program by Shishir Bhalerao.
+    As the main theme of my project is based on Face Recogintion, this program prevents crime using it.
+    The functionality of fuctions are explained with proper Comments and Documentation,
+    also proper indentation, code grouping, naming convention and line length are followed which
+    helps to understand code easily.
+*/
+
+//Declaring some HTML Elements with global scope as they will be used multiple times and 
+// declaring them as const (constant) as no modification is required for them.
+
 const video = document.getElementById('videoInput');
-var labelsUpload = new Array();
-var labelsUploadLength = new Array();
-var imagesUploaded = new Map();
-let no_of_labels = -1;
-let leastImgUploaded = -1;
 const saved = document.getElementById('saved');
 const livestream = document.getElementById('livestream');
 const youtubestream = document.getElementById('youtubestream');
 const image_input = document.querySelector('#image_input');
 const image_name = document.querySelector('#image_name');
 const video_input = document.querySelector('#upload_video');
-var uploadImg = "";
+const defaultBtn = document.querySelector('#image_input');
+const customBtn = document.querySelector('#custom-btn');
 
-document.getElementById('pop-up').addEventListener('click',
-    function () {
-        document.querySelector('.bg-modal').style.display = 'flex';
-        document.querySelector('.banner').style.filter = 'blur(10px)';
-        document.querySelector('.fade').style.filter = 'blur(2px)';
-    });
+// Declaring global varibles which will be used multiple times and with variant values.
+
+var suspectsUploadName = new Array(); // Array to store Name of the Suspects.
+var suspectsUploadLength = new Array(); //Array to store number of images of the Suspects.
+var imagesUploaded = new Map(); // Map to store images of the Suspects.
+let no_of_suspects = -1;
+let leastImgUploaded = -1;
+var uploadImg = "";
+var canvas;
+
+// Some Styling for HTML ddocument (like pop-up).
+document.getElementById('pop-up').addEventListener('click', function () {
+    document.querySelector('.bg-modal').style.display = 'flex';
+    document.querySelector('.banner').style.filter = 'blur(10px)';
+    document.querySelector('.fade').style.filter = 'blur(2px)';
+});
 
 document.querySelector('.close').addEventListener('click', function () {
     document.querySelector('.bg-modal').style.display = 'none';
@@ -26,7 +43,11 @@ document.querySelector('.close').addEventListener('click', function () {
 });
 
 document.getElementById('saved').addEventListener('click', function () {
-    if (no_of_labels == -1) {
+    /*
+        Before allowing the user to select a video a stream,
+        checking if atleast a suspect name and a image is uploaded. 
+    */
+    if (no_of_suspects == -1) {
         alert("First Please Upload the credentials.");
     }
     else {
@@ -47,6 +68,96 @@ document.getElementById('close-video-show').addEventListener('click', function (
     document.querySelector('.fade').style.filter = 'none';
 });
 
+// This function is to active the button to upload image of the suspect from HTML document.
+function defaultBtnActive() {
+    var nameInput = document.getElementById('image_name').value;
+    /*
+        First a condition to check if the name is entered or not.
+    */
+    if (nameInput.length == 0) {
+        alert('Please Enter A Valid Name First.');
+    }
+    else defaultBtn.click();
+}
+
+//This function is to trigger the button to upload video from HTML document.
+function uploadButtonActive() {
+    video_input.click();
+}
+
+/*
+    This function take the names which are give by the user,
+    after checking all the conditions it stores name in the "suspectsUploadName" array.
+    This fucntion is called directly from the HTML document.
+*/
+function nameinputFunction() {
+    var nameInput = document.getElementById('image_name').value;
+    // Firstly it checkes if atleast one image is uploaded. 
+    if (leastImgUploaded == -1) {
+        alert('First Please Select Atleast One Image of the Suspect');
+    }
+    // Then also it checks if the name is also inputed or not.
+    else if (nameInput.length == 0) { 
+        alert('Please Enter A Valid Name.');
+    }
+    else {
+        no_of_suspects = no_of_suspects + 1;
+        console.log(nameInput);
+        suspectsUploadName.push(`${nameInput}`);
+        document.querySelector('.bg-modal').style.display = 'none';
+        document.querySelector('.banner').style.filter = 'none'
+        document.querySelector('.fade').style.filter = 'none';
+    }
+}
+
+/*
+    This event is taken after images are uploaded by the user ,
+    after checking all the conditions the function stores images in the "imagesUploaded" map.
+*/
+image_input.addEventListener("change", (e) => {
+    leastImgUploaded = 1;
+    // So first we check if the browser supports the File API (almost all browser supports).
+    if (window.File && window.FileReader && window.FileList && window.Blob) {
+        const files = e.target.files;
+        var nameInput ;
+        let resultInput;
+        // Now iterating the number of files and saving them.
+        for (let i = 0; i < files.length; i++) {
+            if (!files[i].type.match("image")) continue;
+            const picReader = new FileReader();
+            // So as the file is loaded to the picReader.
+            picReader.addEventListener("load", () => {
+                nameInput = document.getElementById('image_name').value;
+                resultInput = nameInput.concat(`${i}`);
+                /* 
+                    Now Saving the Images Inputed with the format of "suspectName+indexNumber"
+                    in the "imagesUploaded" map.
+                */
+                imagesUploaded.set(`${resultInput}`, picReader.result);
+                console.log(picReader.result);
+            })
+            picReader.readAsDataURL(files[i]);
+        }
+        nameInput = document.getElementById('image_name').value;
+        resultInput = nameInput.concat(`${files.length}`);
+        // Now storing name+length in "suspectsUploadLength" array.
+        suspectsUploadLength.push(`${resultInput}`);
+        console.log(suspectsUploadLength);
+    }
+    else {
+        alert("Your Browser Does Not Support File API");
+    }
+})
+
+/* 
+    Here is the main API which is used i.e. Face API.js. 
+    So we are loading Face API.js's models which will help us to load and recognize faces.
+    I have downloaded this models (in ./models folder) and 
+    all Face API's pre-requisite files(in ./js folders). 
+    I learned this from the following Git Document:
+    https://justadudewhohacks.github.io/face-api.js/docs/index.html  
+*/
+
 Promise.all([
     faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
     faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
@@ -56,84 +167,35 @@ Promise.all([
     location.reload(true);
 });
 
-console.log(image_name)
-const defaultBtn = document.querySelector('#image_input');
-const customBtn = document.querySelector('#custom-btn');
-function defaultBtnActive() {
-    var nameInput = document.getElementById('image_name').value;
-    if (nameInput.length == 0) {
-        alert('Please Enter A Valid Name First.');
-    }
-    else defaultBtn.click();
-}
-function uploadButtonActive() {
-    video_input.click();
-}
-function nameinputFunction() {
-    var nameInput = document.getElementById('image_name').value;
-    if (leastImgUploaded == -1) {
-        alert('First Please Select Atleast One Image of the Suspect');
-    }
-    else if (nameInput.length == 0) {
-        alert('Please Enter A Valid Name.');
-    }
-    else {
-        no_of_labels = no_of_labels + 1 ;
-        console.log(nameInput);
-        labelsUpload.push(`${nameInput}`);
-        document.querySelector('.bg-modal').style.display = 'none';
-        document.querySelector('.banner').style.filter = 'none'
-        document.querySelector('.fade').style.filter = 'none';
-    }
-}
-async function addFace() {
-    no_of_labels = no_of_labels + 1 ;
-}
 
-image_input.addEventListener("change", (e) => {
-    leastImgUploaded = 1;
-    if (window.File && window.FileReader && window.FileList && window.Blob) {
-        const files = e.target.files;
-        for (let i = 0; i < files.length; i++) {
-            if (!files[i].type.match("image")) continue;
-            const picReader = new FileReader();
-            picReader.addEventListener("load", () => {
-                var nameInput = document.getElementById('image_name').value;
-                let resultInput = nameInput.concat(`${i}`);
-                imagesUploaded.set(`${resultInput}`,picReader.result);
-                console.log(picReader.result);
-            })
-            picReader.readAsDataURL(files[i]);
-        }
-        var nameInput = document.getElementById('image_name').value;
-        let resultInput = nameInput.concat(`${files.length}`);
-        labelsUploadLength.push(`${resultInput}`);
-        console.log(labelsUploadLength);
-    }
-    else {
-        alert("Your Browser Does Not Support File API");
-    }
-})
-
+/*
+    Now the following two EventListener and one function that are for invoking our main fucntion,
+    these selects any one of the stream i.e. either LiveStream, Youtube Stream and Uploaded Video.
+*/
 livestream.addEventListener('click', function (e) {
     document.querySelector('.bg-videoshow').style.display = 'flex';
     document.querySelector('.banner').style.filter = 'blur(10px)';
     document.querySelector('.fade').style.filter = 'blur(2px)';
+    // Calling the start function that will select video source as web cam video.
     start()
 });
 youtubestream.addEventListener('click', function (e) {
     var ytlink = document.getElementById('ytlink').value;
     console.log(ytlink);
+    // Setting video source to the youtube link.
     video.src = `${ytlink}`;
     document.querySelector('.bg-videoshow').style.display = 'flex';
     document.querySelector('.banner').style.filter = 'blur(10px)';
     document.querySelector('.fade').style.filter = 'blur(2px)';
+    // Now calling our main Function.
     recognizeFaces();
 })
 
+// Function to select the video stream as uploaded video.
 function selectedVid(self) {
     var file = self.files[0];
     var reader = new FileReader();
+    // Setting our video src to the viddeo uploaded by the user.
     reader.onload = function (e) {
         var src = e.target.result;
         console.log('src');
@@ -145,23 +207,26 @@ function selectedVid(self) {
     document.querySelector('.banner').style.filter = 'blur(10px)';
     document.querySelector('.fade').style.filter = 'blur(2px)';
     document.querySelector('.videoshow').style.display = 'flex';
+    // Now calling our main Function.
     recognizeFaces();
 }
 
+// Function to set live option in video stream.
 function start() {
     document.querySelector('.videoshow').style.display = 'flex';
+    //Setting our videi=o source to WebCam / Live Video.
     navigator.getUserMedia(
         { video: {} },
         stream => video.srcObject = stream,
         err => console.log(err)
     )
+    // Now calling our main Function.
     recognizeFaces();
 }
 
-var canvas;
 async function recognizeFaces() {
-    const labeledDescriptors = await loadUploadImagesLength();
-    const faceMatcher = new faceapi.FaceMatcher(labeledDescriptors, 0.6);
+    const suspectedDescriptors = await loadUploadImagesLength();
+    const faceMatcher = new faceapi.FaceMatcher(suspectedDescriptors, 0.6);
     alert('Now you can play');
     video.addEventListener('play', () => {
         console.log('playing');
@@ -173,7 +238,7 @@ async function recognizeFaces() {
 
         let intervalID = setInterval(async () => {
             const detections = await faceapi.detectAllFaces(video).withFaceLandmarks().withFaceDescriptors();
-            
+
             const resizedDetections = faceapi.resizeResults(detections, displaySize);
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
             const results = resizedDetections.map((d) => {
@@ -231,14 +296,14 @@ async function recognizeFaces() {
 
 function loadUploadImagesLength() {
     return Promise.all(
-        labelsUploadLength.map(async (label) => {
+        suspectsUploadLength.map(async (suspect) => {
             const descriptions = [];
-            var len = parseInt(label[label.length - 1]);
+            var len = parseInt(suspect[suspect.length - 1]);
             console.log(len);
-            var label_real = label.substring(0, label.length - 1);
-            console.log(label_real);
+            var suspect_real = suspect.substring(0, suspect.length - 1);
+            console.log(suspect_real);
             for (let i = 0; i < len; i++) {
-                var nameInput = label_real;
+                var nameInput = suspect_real;
                 let resultInput = nameInput.concat(`${i}`);
 
                 const img = await faceapi.fetchImage(imagesUploaded.get(`${resultInput}`));
@@ -246,8 +311,8 @@ function loadUploadImagesLength() {
                 descriptions.push(detections.descriptor);
             }
 
-            console.log(label_real + ' Faces Loaded|' + 'haa bhai sahi mein hogya');
-            return new faceapi.LabeledFaceDescriptors(label_real, descriptions);
+            console.log(suspect_real + ' Faces Loaded|' + 'haa bhai sahi mein hogya');
+            return new faceapi.LabeledFaceDescriptors(suspect_real, descriptions);
         })
     )
 }
