@@ -13,9 +13,9 @@ const video = document.getElementById('videoInput');
 const saved = document.getElementById('saved');
 const livestream = document.getElementById('livestream');
 const youtubestream = document.getElementById('youtubestream');
-const image_input = document.querySelector('#image_input');
-const image_name = document.querySelector('#image_name');
-const video_input = document.querySelector('#upload_video');
+const imageInput = document.querySelector('#image_input');
+const imageName = document.querySelector('#image_name');
+const videoInput = document.querySelector('#upload_video');
 const defaultBtn = document.querySelector('#image_input');
 const customBtn = document.querySelector('#custom-btn');
 
@@ -24,7 +24,7 @@ const customBtn = document.querySelector('#custom-btn');
 var suspectsUploadName = new Array(); // Array to store Name of the Suspects.
 var suspectsUploadLength = new Array(); //Array to store number of images of the Suspects.
 var imagesUploaded = new Map(); // Map to store images of the Suspects.
-let no_of_suspects = -1;
+let numberOfSuspects = -1;
 let leastImgUploaded = -1;
 var uploadImg = "";
 var canvas;
@@ -47,7 +47,7 @@ document.getElementById('saved').addEventListener('click', function () {
         Before allowing the user to select a video a stream,
         checking if atleast a suspect name and a image is uploaded. 
     */
-    if (no_of_suspects == -1) {
+    if (numberOfSuspects == -1) {
         alert("First Please Upload the credentials.");
     }
     else {
@@ -82,7 +82,7 @@ function defaultBtnActive() {
 
 //This function is to trigger the button to upload video from HTML document.
 function uploadButtonActive() {
-    video_input.click();
+    videoInput.click();
 }
 
 /*
@@ -101,8 +101,8 @@ function nameinputFunction() {
         alert('Please Enter A Valid Name.');
     }
     else {
-        no_of_suspects = no_of_suspects + 1;
-        console.log(nameInput);
+        numberOfSuspects = numberOfSuspects + 1;
+        console.log('Suspect Inputed Name : '+nameInput);
         suspectsUploadName.push(`${nameInput}`);
         document.querySelector('.bg-modal').style.display = 'none';
         document.querySelector('.banner').style.filter = 'none'
@@ -114,7 +114,7 @@ function nameinputFunction() {
     This event is taken after images are uploaded by the user ,
     after checking all the conditions the function stores images in the "imagesUploaded" map.
 */
-image_input.addEventListener("change", (e) => {
+imageInput.addEventListener("change", (e) => {
     leastImgUploaded = 1;
     // So first we check if the browser supports the File API (almost all browser supports).
     if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -134,7 +134,7 @@ image_input.addEventListener("change", (e) => {
                     in the "imagesUploaded" map.
                 */
                 imagesUploaded.set(`${resultInput}`, picReader.result);
-                console.log(picReader.result);
+                console.log(`Image Loaded of ${resultInput} to :`+picReader.result);
             })
             picReader.readAsDataURL(files[i]);
         }
@@ -142,7 +142,7 @@ image_input.addEventListener("change", (e) => {
         resultInput = nameInput.concat(`${files.length}`);
         // Now storing name+length in "suspectsUploadLength" array.
         suspectsUploadLength.push(`${resultInput}`);
-        console.log(suspectsUploadLength);
+        console.log('Name stores in our required Case: '+suspectsUploadLength);
     }
     else {
         alert("Your Browser Does Not Support File API");
@@ -163,7 +163,7 @@ Promise.all([
     faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
     faceapi.nets.ssdMobilenetv1.loadFromUri('./models'),
 ]).then().catch((error) => {
-    console.log('handled');
+    console.log('Error Handled');
     location.reload(true);
 });
 
@@ -198,9 +198,8 @@ function selectedVid(self) {
     // Setting our video src to the viddeo uploaded by the user.
     reader.onload = function (e) {
         var src = e.target.result;
-        console.log('src');
         video.setAttribute("src", src);
-        console.log('video ki src' + video.src);
+        console.log('Video uploaded source: ' + video.src);
     }
     reader.readAsDataURL(file);
     document.querySelector('.bg-videoshow').style.display = 'flex';
@@ -218,44 +217,59 @@ function start() {
     navigator.getUserMedia(
         { video: {} },
         stream => video.srcObject = stream,
-        err => console.log(err)
+        err => console.log('WebCam Error: '+err)
     )
     // Now calling our main Function.
     recognizeFaces();
 }
 
+/*
+    This function "recognizeFaces()" is our main function which will recognize the face of the suspect,
+    first it calls the a fucntion "loadUploadImagesLength()", then after recieving the data it matches 
+    with the video stream through different function provided by Face API.
+*/
 async function recognizeFaces() {
+    // So first it calls the "loadUploadImagesLength()" fucntion and stores its data. 
     const suspectedDescriptors = await loadUploadImagesLength();
     const faceMatcher = new faceapi.FaceMatcher(suspectedDescriptors, 0.6);
     alert('Now you can play');
+    // So the event is triggered when the play button is hit.
     video.addEventListener('play', () => {
-        console.log('playing');
-
+        console.log('Playing the Video Stream.');
+        // So now a canvas is made from video trhough function provided by Face API.
         canvas = faceapi.createCanvasFromMedia(video);
         document.body.append(canvas);
         const displaySize = { width: video.width, height: video.height };
-        faceapi.matchDimensions(canvas, displaySize);
+        faceapi.matchDimensions(canvas, displaySize); // Dimension are matched w.r.t. video dimensions.
 
+        /*
+            So now we have a setInterval function with the timer of 100 miliseconds,
+            it first matches all the faces in video through the "detectAllFaces(parameters)" function,
+            with their landmarks by "withFaceLandmarks()" and with "withFaceDescriptors()".
+        */
         let intervalID = setInterval(async () => {
-            const detections = await faceapi.detectAllFaces(video).withFaceLandmarks().withFaceDescriptors();
 
+            const detections = await faceapi.detectAllFaces(video).withFaceLandmarks().withFaceDescriptors();
+            // So as detection is done now we will resize them through "resizeResults(parameter)" by Face API.
             const resizedDetections = faceapi.resizeResults(detections, displaySize);
+
+            // Now before showing the result on the canvas, we clear it so that previous don't stack up.
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+
+            /*
+                Now as we have all the detections in "resizedDetetion" we will find the best match 
+                faces in video through "findBestMatch(parameters)" function by passing their respective 
+                desciptor again provided by Face API and then we will store them in result.
+            */
             const results = resizedDetections.map((d) => {
                 return faceMatcher.findBestMatch(d.descriptor);
             })
             var flag = 1
-            results.forEach((result, i) => {
-                const box = resizedDetections[i].detection.box;
-                console.log('canvas is drawing');
+            // So as we got all result we will make a drawbox for all faces and then display it on canvas.
+            results.forEach((result, i) => { 
+                const box = resizedDetections[i].detection.box; 
+                console.log(result);
                 let weGot = result.toString();
-                if (weGot[0] == 'S') {
-                    console.log(result.toString());
-                    flag = 0;
-                    const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
-                    drawBox.draw(canvas);
-                    return;
-                }
                 const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
                 drawBox.draw(canvas);
             })
@@ -264,8 +278,10 @@ async function recognizeFaces() {
                 return;
             }
         }, 100);
+
+        // Now as if we get any request which will be stop the function we will handle that event.
         document.getElementById('close-video-show').addEventListener('click', function () {
-            console.log('hello done');
+            console.log('Process Done');
             clearInterval(intervalID);
             video.pause();
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
@@ -274,7 +290,7 @@ async function recognizeFaces() {
             return;
         })
         document.getElementById('close-video').addEventListener('click', function () {
-            console.log('hello done');
+            console.log('Process Done');
             clearInterval(intervalID);
             video.pause();
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
@@ -283,7 +299,7 @@ async function recognizeFaces() {
             return;
         })
         document.querySelector('.close').addEventListener('click', function () {
-            console.log('hello done');
+            console.log('Process Done');
             clearInterval(intervalID);
             video.pause();
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
@@ -294,25 +310,35 @@ async function recognizeFaces() {
     })
 }
 
+/*
+    These function "loadUploadImagesLength()" will extract the face data from the photos of suspect,
+    and then store it the descriptors and then return it back which is used in our "recognizeFaces()".
+*/
 function loadUploadImagesLength() {
     return Promise.all(
-        suspectsUploadLength.map(async (suspect) => {
+        // So we will itereate over "suspectsUploadLength" array which we had stored SuspectName+NoOfImages.
+        suspectsUploadLength.map(async (suspectName) => {
             const descriptions = [];
-            var len = parseInt(suspect[suspect.length - 1]);
-            console.log(len);
-            var suspect_real = suspect.substring(0, suspect.length - 1);
-            console.log(suspect_real);
+            // We will extract the number of images uploaded user.
+            var len = parseInt(suspectName[suspectName.length - 1]);
+            // And then the name of the user as we have set in array.
+            var suspectRealName = suspectName.substring(0, suspectName.length - 1);
             for (let i = 0; i < len; i++) {
-                var nameInput = suspect_real;
+                var nameInput = suspectRealName;
                 let resultInput = nameInput.concat(`${i}`);
-
+                /*
+                    Then for all the Images stored in map with that user tag we will detect the face from it,
+                    with the "detectSingleFace(parameters)" function, with their landmarks by "withFaceLandmarks()"
+                    and with "withFaceDescriptors()" provided by Face API.
+                */
                 const img = await faceapi.fetchImage(imagesUploaded.get(`${resultInput}`));
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
                 descriptions.push(detections.descriptor);
             }
 
-            console.log(suspect_real + ' Faces Loaded|' + 'haa bhai sahi mein hogya');
-            return new faceapi.LabeledFaceDescriptors(suspect_real, descriptions);
+            console.log('Loaded Face of '+suspectRealName);
+            //Then we will return the descriptors of the all suspects for all suspects to the "recognizeFaces()".
+            return new faceapi.LabeledFaceDescriptors(suspectRealName, descriptions);
         })
     )
 }
