@@ -3,6 +3,7 @@ const video = document.getElementById('videoInput')
 const labels = ['Black Widow', 'Captain America', 'Captain Marvel', 'Hawkeye', 'Jim Rhodes', 'Thor', 'Tony Stark']
 var labelsUpload = new Array();
 var labelsUploadLength = new Array();
+var imagesUploaded = new Map();
 let no_of_labels = -1;
 let leastImgUploaded = -1
 const live = document.getElementById('live')
@@ -107,7 +108,8 @@ image_input.addEventListener("change", (e) => {
                 // uploadImg = reader.result;
                 var nameInput = document.getElementById('image_name').value;
                 let resultInput = nameInput.concat(`${i}`);
-                window.localStorage.setItem(`${resultInput}`, picReader.result);
+                imagesUploaded.set(`${resultInput}`,picReader.result)
+                // window.localStorage.setItem(`${resultInput}`, picReader.result);
                 // document.body.append(reader)
                 console.log(picReader.result)
             })
@@ -330,7 +332,8 @@ function loadUploadImagesLength() {
                 //const img = await faceapi.fetchImage(`./labeled_images/${label}/${i}.jpg`)
                 var nameInput = label_real
                 let resultInput = nameInput.concat(`${i}`);
-                const img = await faceapi.fetchImage(localStorage.getItem(`${resultInput}`))
+                //const img = await faceapi.fetchImage(localStorage.getItem(`${resultInput}`))
+                const img = await faceapi.fetchImage(imagesUploaded.get(`${resultInput}`));
                 const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                 descriptions.push(detections.descriptor)
             }
