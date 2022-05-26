@@ -22,7 +22,7 @@ const customBtn = document.querySelector('#custom-btn');
 // Declaring global varibles which will be used multiple times and with variant values.
 
 var suspectsUploadName = new Array(); // Array to store Name of the Suspects.
-var suspectsUploadLength = new Array(); //Array to store number of images of the Suspects.
+var suspectsUploadLength = new Map(); //Map to store number of images of the Suspects.
 var imagesUploaded = new Map(); // Map to store images of the Suspects.
 let numberOfSuspects = -1;
 let leastImgUploaded = -1;
@@ -66,6 +66,10 @@ document.getElementById('close-video-show').addEventListener('click', function (
     document.querySelector('.videoshow').style.display = 'none';
     document.querySelector('.banner').style.filter = 'none';
     document.querySelector('.fade').style.filter = 'none';
+});
+document.getElementById('suspect-show').addEventListener('click', function () {
+    document.querySelector('.suspectFound').style.display = 'none';
+    canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 });
 
 // This function is to active the button to upload image of the suspect from HTML document.
@@ -121,6 +125,7 @@ imageInput.addEventListener("change", (e) => {
         const files = e.target.files;
         var nameInput ;
         let resultInput;
+        console.log(files.length)
         // Now iterating the number of files and saving them.
         for (let i = 0; i < files.length; i++) {
             if (!files[i].type.match("image")) continue;
@@ -139,10 +144,9 @@ imageInput.addEventListener("change", (e) => {
             picReader.readAsDataURL(files[i]);
         }
         nameInput = document.getElementById('image_name').value;
-        resultInput = nameInput.concat(`${files.length}`);
         // Now storing name+length in "suspectsUploadLength" array.
-        suspectsUploadLength.push(`${resultInput}`);
-        console.log('Name stores in our required Case: '+suspectsUploadLength);
+        suspectsUploadLength.set(`${nameInput}`,files.length)
+        console.log('Name stores in our required Case: '+files.length);
     }
     else {
         alert("Your Browser Does Not Support File API");
@@ -268,15 +272,32 @@ async function recognizeFaces() {
             // So as we got all result we will make a drawbox for all faces and then display it on canvas.
             results.forEach((result, i) => { 
                 const box = resizedDetections[i].detection.box; 
-                console.log(result);
-                let weGot = result.toString();
+                let weGot = result.label;
+                console.log(weGot);
+                if(weGot=="unknown"){
+                    flag=0;
+                }
+                else{
+                    flag++;
+                }
+                if(flag>=2 && result.distance >= 0.5){
+                    console.log('yes')
+                    video.pause();
+                    document.getElementById("suspectDetectedName").innerHTML = 'Suspect Name : ' + weGot;
+                    document.querySelector('.suspectFound').style.display = 'flex';
+                    canvas.style.display='block';
+                }
                 const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
                 drawBox.draw(canvas);
             })
 
-            if (flag == 0) {
+            video.addEventListener('pause', function () {
+                console.log('Process Done');
+                clearInterval(intervalID);
+                canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
+                canvas.style.display = 'none';
                 return;
-            }
+            })
         }, 100);
 
         // Now as if we get any request which will be stop the function we will handle that event.
@@ -284,6 +305,7 @@ async function recognizeFaces() {
             console.log('Process Done');
             clearInterval(intervalID);
             video.pause();
+            document.querySelector('.suspectFound').style.display = 'none';
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
             canvas.style.display = 'none';
             video.src = "";
@@ -293,6 +315,7 @@ async function recognizeFaces() {
             console.log('Process Done');
             clearInterval(intervalID);
             video.pause();
+            document.querySelector('.suspectFound').style.display = 'none';
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
             canvas.style.display = 'none';
             video.src = "";
@@ -302,6 +325,7 @@ async function recognizeFaces() {
             console.log('Process Done');
             clearInterval(intervalID);
             video.pause();
+            document.querySelector('.suspectFound').style.display = 'none';
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
             canvas.style.display = 'none';
             video.src = "";
@@ -316,13 +340,13 @@ async function recognizeFaces() {
 */
 function loadUploadImagesLength() {
     return Promise.all(
-        // So we will itereate over "suspectsUploadLength" array which we had stored SuspectName+NoOfImages.
-        suspectsUploadLength.map(async (suspectName) => {
+        // So we will itereate over "suspectsUploadName" array which we had stored SuspectName.
+        suspectsUploadName.map(async (suspectName) => {
             const descriptions = [];
             // We will extract the number of images uploaded user.
-            var len = parseInt(suspectName[suspectName.length - 1]);
-            // And then the name of the user as we have set in array.
-            var suspectRealName = suspectName.substring(0, suspectName.length - 1);
+            var len = suspectsUploadLength.get(`${suspectName}`)
+            var suspectRealName = suspectName;
+            console.log(len)
             for (let i = 0; i < len; i++) {
                 var nameInput = suspectRealName;
                 let resultInput = nameInput.concat(`${i}`);
@@ -332,10 +356,14 @@ function loadUploadImagesLength() {
                     and with "withFaceDescriptors()" provided by Face API.
                 */
                 const img = await faceapi.fetchImage(imagesUploaded.get(`${resultInput}`));
-                const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
-                descriptions.push(detections.descriptor);
+                try {
+                    const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor();
+                    descriptions.push(detections.descriptor);
+                } catch (error) {
+                    console.log('Invalid data Found')
+                }
+                
             }
-
             console.log('Loaded Face of '+suspectRealName);
             //Then we will return the descriptors of the all suspects for all suspects to the "recognizeFaces()".
             return new faceapi.LabeledFaceDescriptors(suspectRealName, descriptions);

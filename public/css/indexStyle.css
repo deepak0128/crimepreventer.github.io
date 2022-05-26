@@ -26,7 +26,6 @@ html {
 }
 
 .nav-list {
-    /* background-color: black; */
     width: 80%;
     display: flex;
     font-weight: 500;
@@ -42,7 +41,6 @@ html {
     text-decoration: none;
     font-size: 16px;
     letter-spacing: 2px;
-    /* text-transform: uppercase; */
     color: azure;
 }
 
@@ -98,13 +96,6 @@ html {
 
 .firstHalf {
     width: 90%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.secondHalf {
-    width: 30%;
     display: flex;
     flex-direction: column;
     justify-content: center;
