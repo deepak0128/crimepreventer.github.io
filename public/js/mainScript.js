@@ -173,6 +173,10 @@ youtubestream.addEventListener('click', function (e) {
     // Now calling our main Function.
     recognizeFaces();
 })
+
+    Also with that I learned some of the basic of Agora Video SDK to implement video call 
+    like Microsoft Teams to scale up this project to multiple stream but as per the 
+    little time, I decided to do this changes in near future.  
 */
 
 // Function to select the video stream as uploaded video.
