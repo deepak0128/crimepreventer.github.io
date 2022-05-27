@@ -111,7 +111,7 @@ imageInput.addEventListener("change", (e) => {
                     in the "imagesUploaded" map.
                 */
                 imagesUploaded.set(`${resultInput}`, picReader.result);
-                console.log(`Image Loaded of ${resultInput} to :`+picReader.result);
+                // console.log(`Image Loaded of ${resultInput} to :`+picReader.result);
             })
             picReader.readAsDataURL(files[i]);
         }
@@ -180,7 +180,7 @@ function selectedVid(self) {
     reader.onload = function (e) {
         var src = e.target.result;
         video.setAttribute("src", src);
-        console.log('Video uploaded source: ' + video.src);
+        console.log('Video uploaded !');
     }
     reader.readAsDataURL(file);
     document.querySelector('.bg-videoshow').style.display = 'flex';
@@ -192,10 +192,13 @@ function selectedVid(self) {
 // Function to set live option in video stream.
 function start() {
     document.querySelector('.videoshow').style.display = 'flex';
-    //Setting our videi=o source to WebCam / Live Video.
+    //Setting our video source to WebCam / Live Video.
     navigator.getUserMedia(
         { video: {} },
-        stream => video.srcObject = stream,
+        stream => {
+            video.srcObject = stream
+            window.localStream = stream;
+        },
         err => console.log('WebCam Error: '+err)
     )
     // Now calling our main Function.
@@ -283,27 +286,8 @@ async function recognizeFaces() {
             document.querySelector('.suspectFound').style.display = 'none';
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
             canvas.style.display = 'none';
-            video.src = "";
-            return;
-        })
-        document.getElementById('close-video').addEventListener('click', function () {
-            console.log('Process Done');
-            clearInterval(intervalID);
-            video.pause();
-            document.querySelector('.suspectFound').style.display = 'none';
-            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-            canvas.style.display = 'none';
-            video.src = "";
-            return;
-        })
-        document.querySelector('.close').addEventListener('click', function () {
-            console.log('Process Done');
-            clearInterval(intervalID);
-            video.pause();
-            document.querySelector('.suspectFound').style.display = 'none';
-            canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
-            canvas.style.display = 'none';
-            video.src = "";
+            video.src = "";  
+            // Closing WebCam Feed if Open
             return;
         })
     })

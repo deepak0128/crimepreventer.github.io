@@ -26,7 +26,6 @@ canvas {
     background-blend-mode: darken;
     justify-content: space-between;
     background-size: contain;
-    background-repeat: none;
     background-position: center;
 }
 
@@ -117,9 +116,18 @@ canvas {
 }
 
 .howToUse {
-    background-color: white;
-    padding: 10px;
-    max-width: 90%;
+    background-color: rgb(19, 19, 19);
+    padding: 5%;
+    padding-left: 8%;
+    padding-right: 8%;
+}
+
+.howToUseText{
+    word-spacing: 3px;
+    letter-spacing: 0.5px;
+    color: whitesmoke;
+    padding-top: 20px;
+    font-size: 21px;
 }
 
 .outBut {
