@@ -70,14 +70,14 @@
             <div class="inputclass">
                 <div class="dropdown">
                     <div class="dropBtn">
-                        <p class="dropBtntext"><i class="fas fa-video"></i>Livestream</p>
-                        <button id="livestream" class="btnsubmit">Start</button>
-                    </div>
-                    <div class="dropBtn">
                         <p class="dropBtntext"><i class="fab fa-youtube"></i>Upload A Video</p>
                         <input id="upload_video" type="file" class="btnsubmit def-hide"
                             accept="video/mp4 video/mkv video/webm" onchange="selectedVid(this)" hidden>
                         <button id="upload-visible" class="btnsubmit" onclick="uploadButtonActive()">Upload</button>
+                    </div>
+                    <div class="dropBtn">
+                        <p class="dropBtntext"><i class="fas fa-video"></i>Livestream</p>
+                        <button id="livestream" class="btnsubmit">Start</button>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,7 @@
         <div class="topSectionText">
             <div id="close-video-show" class="close">+</div>
             <video class="videoshow" id="videoInput" width="720p" height="550" muted controls></video>
+            <audio src="./img/alertAudio.mp3" id="audio" controls style="display: none;"></audio>
         </div>
     </div>
 
@@ -105,7 +106,7 @@
         </p>
 
         <p class="link-footer" id="connect">
-            <a class="link-anchor" href="https://github.com/shishir-b" target="_blank"><i class="fab fa-github"></i></a>
+            <a class="link-anchor" href="https://github.com/shishir-b/crimepreventer.github.io" target="_blank"><i class="fab fa-github"></i></a>
             <a class="link-anchor" href="mailto:shishirbhalerao69@gmail.com"><i class="fa fa-envelope "
                     target="_blank"></i></a>
             <a class="link-anchor" href="https://www.linkedin.com/in/shishir-bhalerao-76b583237/" target="_blank"><i

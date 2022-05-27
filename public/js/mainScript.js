@@ -270,6 +270,7 @@ async function recognizeFaces() {
                     video.pause();
                     document.getElementById("suspectDetectedName").innerHTML = 'Suspect Name : ' + weGot;
                     document.querySelector('.suspectFound').style.display = 'flex';
+                    document.getElementById('audio').play();
                     canvas.style.display='block';
                 }
                 const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
