@@ -317,10 +317,10 @@ canvas {
 }
 
 .dropBtntext {
-    top: 10%;
+    top: 20%;
     left: 25%;
     right: 25%;
-    font-size: 25px;
+    font-size: 35px;
     position: absolute;
 }
 

@@ -161,6 +161,8 @@ livestream.addEventListener('click', function (e) {
     // Calling the start function that will select video source as web cam video.
     start()
 });
+/*
+    Set Up A Direct Youtube Stream Video perfectly working but blocked by the CORS Policy.
 youtubestream.addEventListener('click', function (e) {
     var ytlink = document.getElementById('ytlink').value;
     console.log(ytlink);
@@ -171,6 +173,7 @@ youtubestream.addEventListener('click', function (e) {
     // Now calling our main Function.
     recognizeFaces();
 })
+*/
 
 // Function to select the video stream as uploaded video.
 function selectedVid(self) {
