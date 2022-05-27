@@ -24,7 +24,7 @@ Crime Preventer Using **Face API** of JavaScript by **recognizing faces** of the
    - `npm install`
 3. Now you can either start the program by live server extension or skip this step. 
 4. Start the server
-   - `npm run ./src/program.js`
+   - `node src/program.js`
 5. The app is now running at http://localhost:3000
 
 
