@@ -157,7 +157,6 @@ Promise.all([
 */
 livestream.addEventListener('click', function (e) {
     document.querySelector('.bg-videoshow').style.display = 'flex';
-    document.querySelector('.banner').style.filter = 'blur(10px)';
     document.querySelector('.fade').style.filter = 'blur(2px)';
     // Calling the start function that will select video source as web cam video.
     start()
@@ -168,7 +167,6 @@ youtubestream.addEventListener('click', function (e) {
     // Setting video source to the youtube link.
     video.src = `${ytlink}`;
     document.querySelector('.bg-videoshow').style.display = 'flex';
-    document.querySelector('.banner').style.filter = 'blur(10px)';
     document.querySelector('.fade').style.filter = 'blur(2px)';
     // Now calling our main Function.
     recognizeFaces();
@@ -186,8 +184,6 @@ function selectedVid(self) {
     }
     reader.readAsDataURL(file);
     document.querySelector('.bg-videoshow').style.display = 'flex';
-    document.querySelector('.banner').style.filter = 'blur(10px)';
-    document.querySelector('.fade').style.filter = 'blur(2px)';
     document.querySelector('.videoshow').style.display = 'flex';
     // Now calling our main Function.
     recognizeFaces();

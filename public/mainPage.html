@@ -9,6 +9,7 @@
     <script defer async src="./js/face-api.min.js"></script>
     <link rel="stylesheet" href="./css/mainPageStyle.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
 </head>
 
 <body>
@@ -17,8 +18,10 @@
     </nav>
     <section class="banner">
         <section class="secHead">
-            <p class="secHeadText">Let's Start.</p>
-        </section>
+            <p class="secHeadText">Start Preventing Crime,
+               <br> using <span class="auto-input theme-color"></span>
+            </p>
+        
         <section class="secButton">
             <ul>
                 <input type="file" id="image_input" multiple="multiple" accept="image/png, image/jpg ,image/jpeg" hidden
@@ -33,7 +36,8 @@
             </ul>
         </section>
     </section>
-    <section class="howToUse fade">
+    </section>
+    <section id="howTo" class="howToUse fade">
         <p class="howToUsetext">
         <p>How to Use: </p>
         <p>First of all Register A Suspect with the "Register Suspect" Button in the above section. The registration of

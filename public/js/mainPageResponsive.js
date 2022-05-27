@@ -27,3 +27,15 @@ document.getElementById('suspect-show').addEventListener('click', function () {
     document.querySelector('.suspectFound').style.display = 'none';
     canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 });
+
+var typed = new Typed(".auto-input", {
+    strings: ["Face Recognition.", "Suspect Images."],
+    typeSpeed: 100,
+    backSpeed: 100,
+    loop: true
+})
+
+window.addEventListener("scroll", function () {
+    var header = document.querySelector('.navbar');
+    header.classList.toggle('sticky', window.scrollY > 0)
+});

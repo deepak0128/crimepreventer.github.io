@@ -21,12 +21,9 @@ canvas {
 .banner {
     width: 100%;
     height: 80vh;
-    background: linear-gradient(45deg, rgb(225, 5, 152) 0%, rgba(225, 5, 34, 0) 70%) repeat scroll 0% 0%,
-        linear-gradient(135deg, rgb(26, 1, 117) 10%, rgba(49, 5, 209, 0) 80%) repeat scroll 0% 0%,
-        linear-gradient(225deg, hsla(179, 91%, 45%, 1) 10%, rgba(10, 219, 216, 0) 80%) repeat scroll 0% 0%,
-        rgba(0, 0, 0, 0) linear-gradient(315deg, rgb(189, 5, 245) 100%, rgba(9, 245, 5, 0) 70%) repeat scroll 0% 0%;
-    opacity: 1.0;
+    background:rgba(46, 42, 42, 0.6) url('../img/bg_blur.jpg');
     text-align: center;
+    background-blend-mode: darken;
     justify-content: space-between;
     background-size: contain;
     background-repeat: none;
@@ -54,7 +51,10 @@ canvas {
     margin-left: 5%;
     color: whitesmoke;
 }
-
+.sticky {
+    background-color: rgb(0, 0, 0);
+    opacity: 0.8;
+}
 .videoshow {
     width: 100%;
     height: 100%;
@@ -92,31 +92,28 @@ canvas {
     display: none;
     flex-direction: column;
 }
-.suspectText{
-    color: red;
-    padding: 2%;
-    letter-spacing: 2px;
-}
+
 .top-sec {
     background-size: contain;
 }
 
 .secButton {
-    height: 50vh;
-    display: grid;
     text-align: left;
-    margin-left: 8%;
+    padding-top: 2%;
 }
 
 .secHead {
     height: 10vh;
-    padding-top: 10%;
-    margin-left: 8%;
+    padding: 10%;
     text-align: left;
 }
 
 .secHeadText {
-    font-size: 35px;
+    font-size: 55px;
+    letter-spacing: 2px;
+    color: aliceblue;
+    font-family: 'Times New Roman', Times, serif;
+    font-style: normal;
 }
 
 .howToUse {
@@ -127,15 +124,17 @@ canvas {
 
 .outBut {
     padding: 10px;
-    text-align: left;
     height: 50px;
     font-size: 20px;
-    transition: 0.4s;
+    transition: 0.2s;
+    margin-left: 4px;
+    letter-spacing: 1px;
     border-radius: 25px;
     background: linear-gradient(135deg, #2e85f6 0%, #58b0fe 100%);
 }
 
 .outBut:hover {
+    box-shadow: 0 0 10px #2196f3, 0 0 20px #2196f3, 0 0 20px #2196f3;
     transform: scale(1.1);
 }
 
@@ -234,6 +233,13 @@ canvas {
     position: relative;
 }
 
+.suspectText{
+    color: red;
+    padding: 2%;
+    background-color: rgb(0 0 0 / 40%);
+    letter-spacing: 2px;
+}
+
 .def-hide {
     display: none;
 }
@@ -277,8 +283,9 @@ canvas {
     position: absolute;
     top: 60%;
     width: 40%;
+    font-size: 23px;
     max-width: 95%;
-    border-radius: 5px;
+    border-radius: 17px;
     background-color: rgb(0, 255, 213);
     transition: 0.1s;
 }
