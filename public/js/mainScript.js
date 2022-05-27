@@ -145,10 +145,7 @@ Promise.all([
     faceapi.nets.faceRecognitionNet.loadFromUri('./models'),
     faceapi.nets.faceLandmark68Net.loadFromUri('./models'),
     faceapi.nets.ssdMobilenetv1.loadFromUri('./models'),
-]).then().catch((error) => {
-    console.log('Error Handled');
-    location.reload(true);
-});
+]).then()
 
 
 /*
