@@ -15,6 +15,8 @@
 <body>
     <nav class="navbar fade">
         <a class="navtext" href="../index.html">Home</a>
+        <a class="navtext" href="#howTo">How?</a>
+        <a class="navtext" href="#connect">Contact Us</a>
     </nav>
     <section class="banner">
         <section class="secHead">
@@ -72,7 +74,7 @@
                     <div class="dropBtn">
                         <p class="dropBtntext"><i class="fab fa-youtube"></i>Upload A Video</p>
                         <input id="upload_video" type="file" class="btnsubmit def-hide"
-                            accept="video/mp4 video/mkv video/webm" onchange="selectedVid(this)" hidden>
+                            accept="video/*" onchange="selectedVid(this)" hidden>
                         <button id="upload-visible" class="btnsubmit" onclick="uploadButtonActive()">Upload</button>
                     </div>
                     <div class="dropBtn">
