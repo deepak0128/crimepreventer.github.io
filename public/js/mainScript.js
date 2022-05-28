@@ -73,12 +73,12 @@ function nameinputFunction() {
         alert('First Please Select Atleast One Image of the Suspect');
     }
     // Then also it checks if the name is also inputed or not.
-    else if (nameInput.length == 0) { 
+    else if (nameInput.length == 0) {
         alert('Please Enter A Valid Name.');
     }
     else {
         numberOfSuspects = numberOfSuspects + 1;
-        console.log('Suspect Inputed Name : '+nameInput);
+        console.log('Suspect Inputed Name : ' + nameInput);
         suspectsUploadName.push(`${nameInput}`);
         document.querySelector('.bg-modal').style.display = 'none';
         document.querySelector('.banner').style.filter = 'none'
@@ -95,7 +95,7 @@ imageInput.addEventListener("change", (e) => {
     // So first we check if the browser supports the File API (almost all browser supports).
     if (window.File && window.FileReader && window.FileList && window.Blob) {
         const files = e.target.files;
-        var nameInput ;
+        var nameInput;
         let resultInput;
         console.log(files.length)
         // Now iterating the number of files and saving them.
@@ -117,8 +117,8 @@ imageInput.addEventListener("change", (e) => {
         }
         nameInput = document.getElementById('image_name').value;
         // Now storing name+length in "suspectsUploadLength" array.
-        suspectsUploadLength.set(`${nameInput}`,files.length)
-        console.log('Name stores in our required Case: '+files.length);
+        suspectsUploadLength.set(`${nameInput}`, files.length)
+        console.log('Name stores in our required Case: ' + files.length);
     }
     else {
         alert("Your Browser Does Not Support File API");
@@ -203,7 +203,7 @@ function start() {
             video.srcObject = stream
             window.localStream = stream;
         },
-        err => console.log('WebCam Error: '+err)
+        err => console.log('WebCam Error: ' + err)
     )
     // Now calling our main Function.
     recognizeFaces();
@@ -252,23 +252,23 @@ async function recognizeFaces() {
             })
             var flag = 1
             // So as we got all result we will make a drawbox for all faces and then display it on canvas.
-            results.forEach((result, i) => { 
-                const box = resizedDetections[i].detection.box; 
+            results.forEach((result, i) => {
+                const box = resizedDetections[i].detection.box;
                 let weGot = result.label;
                 console.log(weGot);
-                if(weGot=="unknown"){
-                    flag=0;
+                if (weGot == "unknown") {
+                    flag = 0;
                 }
-                else{
+                else {
                     flag++;
                 }
-                if(flag>=2 && result.distance >= 0.5){
+                if (flag >= 2 && result.distance >= 0.5) {
                     console.log('yes')
                     video.pause();
                     document.getElementById("suspectDetectedName").innerHTML = 'Suspect Name : ' + weGot;
                     document.querySelector('.suspectFound').style.display = 'flex';
                     document.getElementById('audio').play();
-                    canvas.style.display='block';
+                    canvas.style.display = 'block';
                 }
                 const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() });
                 drawBox.draw(canvas);
@@ -291,7 +291,7 @@ async function recognizeFaces() {
             document.querySelector('.suspectFound').style.display = 'none';
             canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
             canvas.style.display = 'none';
-            video.src = "";  
+            video.src = "";
             // Closing WebCam Feed if Open
             return;
         })
@@ -326,9 +326,9 @@ function loadUploadImagesLength() {
                 } catch (error) {
                     console.log('Invalid data Found')
                 }
-                
+
             }
-            console.log('Loaded Face of '+suspectRealName);
+            console.log('Loaded Face of ' + suspectRealName);
             //Then we will return the descriptors of the all suspects for all suspects to the "recognizeFaces()".
             return new faceapi.LabeledFaceDescriptors(suspectRealName, descriptions);
         })
