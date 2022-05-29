@@ -1,16 +1,16 @@
 {
-  "name": "trying",
+  "name": "crime-preventer",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "To help prevnting crime",
+  "main": "program.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "shishir",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "nodemon": "^2.0.16",
+    "express": "^4.18.1",
     "path": "^0.12.7"
   }
 }
