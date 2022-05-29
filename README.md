@@ -103,11 +103,12 @@ This are the some future thoughts occures in my mind, I tried them but as per ti
 Licensed under [MIT License](/LICENSE) .
 
 
-## Useful Links
-- [Deployed Website](Now Blank)
-- [Demo Video](Now Blank)
+## Demo and Useful Links
+- [Demo Video (YouTube)](https://youtu.be/7po2GHFjL3g)
+- [Demo Video (Google Drive)](https://drive.google.com/file/d/1QgdvuyPCz6Ct-jsyM9nXhnMGPNwvILeG/view?usp=sharing)
 - [Time Line](https://docs.google.com/presentation/d/1JbjXtlUo9oX1Nt3KcCjNvbegIx7x1BnW/edit?usp=sharing&ouid=115596621425655826146&rtpof=true&sd=true)
 - [Presentaion](https://drive.google.com/file/d/1ik17DaUR9vSjJSZ_E0manHRbK18Hv1AW/view?usp=sharing)
+- [Deployed Website](https://shishir-b.github.io/crimepreventer.github.io)
 - [Face API Documents](https://justadudewhohacks.github.io/face-api.js/docs/index.html)
 
 
