@@ -1,5 +1,5 @@
 # Crime Preventer Web-Application
-## Submission for Microsoft Engage 2022 
+## Submission for SIH 2023 
 
 Crime Preventer Using **Face API** of JavaScript by **recognizing faces** of the suspects.
 
@@ -77,7 +77,7 @@ These some practices I followed which made this code easy to understand.
 ## Instructions
 
 
-1. `git clone https://github.com/shishir-b/crimepreventer.github.io.git`  
+1. `git clone https://github.com/deepak0128/crimepreventer.github.io.git`  
 2. Install node dependencies 
    - `npm install`
 3. Now you can either start the program by live server extension or skip this step. 
@@ -97,22 +97,17 @@ This are the some future thoughts occures in my mind, I tried them but as per ti
 1. A **multi live video** crime preventer using any video calling SDK just like any of the online meeting application.
 2. A **automated mail** to the mentioned email address when suspect is detected.
 
-## License and Copyright
-
-&copy; **Shishir Bhalerao**
-Licensed under [MIT License](/LICENSE) .
 
 
 ## Demo and Useful Links
 - [Demo Video (YouTube)](https://youtu.be/B-ziTOekm4I)
 - [Demo Video (Google Drive)](https://drive.google.com/file/d/12ieo7n7LXIlEVx985GBWDlT-oRFCtrrK/view?usp=sharing)
 - [Time Line](https://docs.google.com/presentation/d/1JbjXtlUo9oX1Nt3KcCjNvbegIx7x1BnW/edit?usp=sharing&ouid=115596621425655826146&rtpof=true&sd=true)
-- [Presentaion](https://drive.google.com/file/d/1ik17DaUR9vSjJSZ_E0manHRbK18Hv1AW/view?usp=sharing)
-- [Deployed Website](https://shishir-b.github.io/crimepreventer.github.io)
+- [Deployed Website](https://deepak0128.github.io/crimepreventer.github.io)
 - [Face API Documents](https://justadudewhohacks.github.io/face-api.js/docs/index.html)
 
 
 ## If Any Help Needed.
 
-Feel free to ping me on [LinkedIn](https://www.linkedin.com/in/shishir-bhalerao-76b583237/) 
+Feel free to ping me on [LinkedIn](https://www.linkedin.com/in/dv2801/)
 
