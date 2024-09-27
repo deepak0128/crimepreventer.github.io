@@ -1,5 +1,5 @@
 /*  
-    This program is written for Microsoft Engage 2022 Mentorship Program by Shishir Bhalerao.
+    This program is written for SIH 2023 by Deepak Verma.
     As the main theme of my project is based on Face Recogintion, this program prevents crime using it.
     The functionality of fuctions are explained with proper Comments and Documentation,
     also proper indentation, code grouping, naming convention and line length are followed which
